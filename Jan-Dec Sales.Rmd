@@ -1,0 +1,86 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+---
+title: "CaseStudyHighlandsCafe"
+author: "Alde"
+date: "7/30/2021"
+output: html_document
+---
+
+I am going to analyse data that I was received from my lecturer while I was studying Business Analysis course at the university.
+
+Stage 1: Firstly Install required packages.
+```{r reading packages}
+install.packages("tidyverse")
+install.packages("ggplot2")
+install.packages("janitor")
+
+library(tidyverse)
+library(ggplot2)
+library(janitor)
+```
+
+Stage 2: loading datasets
+
+```{r}
+jan_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Jan.csv')
+feb_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Feb.csv')
+mar_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Mar.csv')
+apr_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Apr.csv')
+may_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_May.csv')
+jun_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Jun.csv')
+jul_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Jul.csv')
+aug_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Aug.csv')
+sept_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Sept.csv')
+oct_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Oct.csv')
+nov_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Nov.csv')
+dec_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Dec.csv')
+
+
+```
+
+Stage 3: Because the column names in he tables have unnecessary spaces, this stage is to clean them using clean_nam() functions
+
+```{r clean table column names}
+
+jan_sales <- clean_names(jan_sales)
+feb_sales <- clean_names(feb_sales)
+mar_sales <- clean_names(mar_sales)
+apr_sales <- clean_names(apr_sales)
+may_sales <- clean_names(may_sales)
+jun_sales <- clean_names(jun_sales)
+jul_sales <- clean_names(jul_sales)
+aug_sales <- clean_names(aug_sales)
+sept_sales <- clean_names(sept_sales)
+oct_sales <- clean_names(oct_sales)
+nov_sales <- clean_names(nov_sales)
+dec_sales <- clean_names(dec_sales)
+
+```
+
+
+Check the column names
+```{r}
+glimpse(jan_sales)
+
+```
+
+After cleaning the column names, it is the time to tada
+
+This stage includes calculation for data to be put under column: 'Spending on drinks', 'Spending of foods' and 'total spending
+
+```{r}
+ a <- jan_sales
+  a$`spending_on_drinks` <- (a$`drinks_orders`*a$`drinks_price`)
+  a$`spending_of_foods` <- (a$`foods_orders`*a$`foods_price`)
+  a$`total_spending` <- a$`spending_on_drinks`+a$`spending_of_foods`
+jan_sales <- a
+  View(jan_sales)
+```
+
+
+
+

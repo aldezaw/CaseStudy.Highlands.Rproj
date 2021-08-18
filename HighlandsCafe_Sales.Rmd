@@ -1,0 +1,121 @@
+---
+title: "CaseStudyHighlandsCafe"
+author: "Alde"
+date: "7/30/2021"
+output: html_document
+---
+
+I am going to analyse data that I was received from my lecturer while I was studying Business Analysis course at the university.
+
+##Stage 1: Firstly Install required packages.
+```{r reading packages}
+install.packages("tidyverse")
+install.packages("ggplot2")
+install.packages("janitor")
+
+library(tidyverse)
+library(ggplot2)
+library(janitor)
+```
+
+##Stage 2: loading datasets
+
+```{r assigning dataset}
+jan_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Jan.csv')
+```
+
+Stage 3: checking and cleaning data
+
+```{r view column names}
+colnames(jan_sales)
+```
+
+
+Because the column names in he tables have unnecessary spaces, this stage is to clean them using clean_nam() functions
+
+```{r clean table column names}
+
+jan_sales <- clean_names(jan_sales)
+
+```
+
+Check the column names again
+```{r gimpse the table}
+glimpse(jan_sales)
+
+```
+
+After cleaning the column names, it is the time to fill missing columns.
+
+##Stage 4: correcting the gaps
+
+This stage includes calculation for data to be put under column: 'Spending on drinks', 'Spending of foods' and 'total spending
+
+```{r calculating empty columns}
+ a <- jan_sales
+  a$`spending_on_drinks` <- (a$`drinks_orders`*a$`drinks_price`)
+  a$`spending_of_foods` <- (a$`foods_orders`*a$`foods_price`)
+  a$`total_spending` <- a$`spending_on_drinks`+a$`spending_of_foods`
+jan_sales <- a
+ # View(jan_sales)
+```
+
+```{r check null value in the table}
+is.null(jan_sales)
+```
+
+this chunk si to check if the number of rows are equal after checking if the table still has any null value by is.null() function
+
+```{r check if there's any null value}
+a <- nrow(jan_sales)
+b <- sum(count(jan_sales))
+ if (a==b)
+ {print(TRUE)}
+```
+
+It seems that I have carefully cleaned the table,
+
+```{r visulisation test}
+ggplot(jan_sales, aes(x=occupation,fill=total_spending))+geom_bar(fill = "blue", colour = "red")
+```
+
+##Stage 5: Filtering the table
+
+this will will manipulate the data from the table finding out who is likely to make large payment
+
+```{r bar for occupation vs drinks}
+ggplot(jan_sales, aes(x=occupation,fill=total_spending))+geom_bar(colour = "red")+facet_wrap(~gender)
+```
+
+```{r bar for male occupation vs drinks}
+plot_male <- filter(jan_sales, gender=="Male")
+ggplot(plot_male, aes(x=occupation,fill=drinks))+geom_bar()
+```
+
+```{r for female occupation vs }
+plot_female <- filter(jan_sales, gender=="Female")
+ggplot(plot_female, aes(x=occupation,fill=drinks))+geom_bar()
+```
+
+##Summary
+
+Finding some important information for making report later
+
+Calculate percentage of males ordered drinks but did not order foods
+
+```{r DYFN_Male}
+DYFN_Male <- nrow(filter(jan_sales, foods_orders==0 ))/nrow(jan_sales)
+print(paste0("Percentage of males ordered drinks but did not order foods is ", DYFN_Male*100,"%"))
+```
+
+the coding will also print the full text to answer the question as "Percentage of males ordered drinks but did not order foods is 38.8%"
+
+Calculate percentage of Highlands female customers
+
+```{r % of female customers}
+print(paste0("Percentage of Highlands female customers is ", (nrow(filter(jan_sales,gender=="Female"))/nrow(jan_sales))*100," %"))
+```
+
+
+
+
