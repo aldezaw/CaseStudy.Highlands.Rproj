@@ -1,6 +1,8 @@
 ---
 title: "Highlands Jan_Sales Data Analysis by R"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 I am going to analyse data that I was received from my lecturer while I was studying Business Analysis course at the university.
@@ -19,7 +21,7 @@ library(janitor)
 ##Stage 2: loading datasets
 
 ```{r assigning dataset}
-jan_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Jan.csv')
+jan_sales <- read_csv('/Users/alde/OneDrive/A.OD.Learning/capstone/CaseStudy/CaseStudy.Highlands/CaseStudy.Highlands.Rproj/Highlands_Sales_Jan.csv')
 ```
 
 Stage 3: checking and cleaning data
@@ -96,6 +98,9 @@ ggplot(plot_female, aes(x=occupation,fill=drinks))+geom_bar()
 ```
 
 ##Summary
+```{r}
+
+```
 
 Finding some important information for making report later
 
