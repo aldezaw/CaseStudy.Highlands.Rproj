@@ -21,7 +21,7 @@ library(janitor)
 ##Stage 2: loading datasets
 
 ```{r assigning dataset}
-jan_sales <- read_csv('/Users/alde/OneDrive/A.OD. Learning/capstone/CaseStudy/Highlands_Sales_Jan.csv')
+jan_sales <- read_csv('/Users/alde/OneDrive/A.OD.Learning/capstone/CaseStudy/CaseStudy.Highlands.Rproj/Highlands_Sales_Jan.csv')
 ```
 
 Stage 3: checking and cleaning data
